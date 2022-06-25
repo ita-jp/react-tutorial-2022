@@ -68,6 +68,7 @@ class Game extends React.Component {
       ],
       stepNumber: 0,
       xIsNext: true,
+      isAscOrder: true,
     }
   }
   handleClick(i) {
@@ -121,7 +122,8 @@ class Game extends React.Component {
         </div>
         <div className="game-info">
           <div>{status}</div>
-          <ol>{histories}</ol>
+          <button onClick={() => this.setState({isAscOrder : !this.state.isAscOrder})}>Reverse</button>
+          <ol>{this.state.isAscOrder ? histories : histories.reverse()}</ol>
         </div>
       </div>
     );
