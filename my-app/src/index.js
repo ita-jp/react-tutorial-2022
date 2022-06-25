@@ -29,7 +29,7 @@ class Board extends React.Component {
   }
   renderSquare(i) {
     return (
-      <Square // TODO カッコとってみる
+      <Square
         value={this.state.squares[i]}
         onClick={() => this.handleClick(i)}
       />
