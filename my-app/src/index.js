@@ -2,6 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 
+const BOARD_SIZE = 3
+
 function Square(props) {
   return (
     <button className="square" onClick={props.onClick}>
@@ -14,6 +16,7 @@ class Board extends React.Component {
   renderSquare(i) {
     return (
       <Square
+        key={i}
         value={this.props.squares[i]}
         onClick={() => this.props.onClick(i)}
       />
@@ -23,21 +26,14 @@ class Board extends React.Component {
   render() {
     return (
       <div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
+      {Array(BOARD_SIZE).fill(1).map((_, row) => {
+      return (
+        <div key={row} className="board-row">
+          {Array(BOARD_SIZE).fill(1).map((_, col) => {
+            return this.renderSquare(BOARD_SIZE * row + col)
+        })}
+      </div>)
+    })}
       </div>
     );
   }
@@ -100,8 +96,8 @@ class Game extends React.Component {
     const winner = calculateWinner(current.squares);
 
     const histories = history.map((snapshot, nth) => {
-      const col = snapshot.changedAt % 3
-      const row = Math.floor(snapshot.changedAt / 3)
+      const col = snapshot.changedAt % BOARD_SIZE
+      const row = Math.floor(snapshot.changedAt / BOARD_SIZE)
       const desc = nth === 0 ? 'Go to game start' : `Go to move #${nth}: (${col}, ${row})`;
       return (
         <li key={nth}>
