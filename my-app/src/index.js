@@ -105,7 +105,7 @@ class Game extends React.Component {
       const desc = nth == 0 ? 'Go to game start' : `Go to move #${nth}: (${col}, ${row})`;
       return (
         <li key={nth}>
-          <button onClick={() => this.jumpTo(nth)}>{desc}</button>
+          <button onClick={() => this.jumpTo(nth)} style={{fontWeight:nth == this.state.stepNumber ? 'bold' : 'normal'}}>{desc}</button>
         </li>
       )
     })
